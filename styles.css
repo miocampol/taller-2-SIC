@@ -227,3 +227,50 @@ body {
     color: #fff;
     border-color: #444;
 }
+
+/* Testamento */
+.testament-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.testament-buttons button {
+    flex: 1;
+    padding: 14px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: white;
+    cursor: pointer;
+}
+
+.testament-buttons button:hover {
+    background: var(--accent);
+    color: white;
+}
+
+/* Capítulos en botones */
+.chapters-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.chapters-grid button {
+    width: 55px;
+    height: 55px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: white;
+    cursor: pointer;
+}
+
+.chapters-grid button:hover {
+    background: var(--accent);
+    color: white;
+}

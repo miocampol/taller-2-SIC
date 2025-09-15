@@ -10,10 +10,11 @@
 
 <body>
     <div class="accessibility-controls" aria-hidden="false">
-        <button id="decreaseFont" title="Reducir letra">A-</button>
-        <button id="increaseFont" title="Aumentar letra">A+</button>
-        <button id="toggleContrast" title="Alternar alto contraste">Contraste</button>
+        <button id="decreaseFont">🔎 Texto más pequeño</button>
+        <button id="increaseFont">🔎 Texto más grande</button>
+        <button id="toggleContrast">🌙 Alternar contraste</button>
     </div>
+
 
     <main class="container" role="main">
         <header class="header" role="banner">
@@ -22,29 +23,32 @@
         </header>
 
         <nav class="navigation" aria-label="Navegación Biblia">
+            <!-- Testamento -->
             <div class="nav-row">
-                <label for="testamentSelect">1) Testamento</label>
-                <select id="testamentSelect" aria-controls="booksGrid">
-                    <option value="">-- Seleccionar --</option>
-                    <option value="old">Antiguo Testamento</option>
-                    <option value="new">Nuevo Testamento</option>
-                </select>
+                <p><strong>1) Seleccione un Testamento:</strong></p>
+                <div class="testament-buttons">
+                    <button id="oldTestamentBtn">📜 Antiguo Testamento</button>
+                    <button id="newTestamentBtn">✝️ Nuevo Testamento</button>
+                </div>
             </div>
-
+        
+            <!-- Libros -->
             <div id="booksSection" class="nav-row hidden" aria-hidden="true">
-                <label>2) Libro</label>
+                <p><strong>2) Seleccione un Libro:</strong></p>
                 <div id="booksGrid" class="books-grid" role="list"></div>
             </div>
-
+        
+            <!-- Capítulos -->
             <div id="chaptersSection" class="nav-row hidden" aria-hidden="true">
-                <label for="chapterSelect">3) Capítulo</label>
-                <select id="chapterSelect"></select>
+                <p><strong>3) Seleccione un Capítulo:</strong></p>
+                <div id="chaptersGrid" class="chapters-grid"></div>
                 <div class="chapter-nav-buttons">
-                    <button id="prevChapter" title="Capítulo anterior">◀ Anterior</button>
-                    <button id="nextChapter" title="Capítulo siguiente">Siguiente ▶</button>
+                    <button id="prevChapter" title="Capítulo anterior">◀ Capítulo anterior</button>
+                    <button id="nextChapter" title="Capítulo siguiente">Capítulo siguiente ▶</button>
                 </div>
             </div>
         </nav>
+
 
         <section id="contentArea" class="content" aria-live="polite">
             <div id="welcome" class="welcome">
