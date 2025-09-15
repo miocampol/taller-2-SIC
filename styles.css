@@ -1,0 +1,229 @@
+:root {
+    --paper: #fbf7ee;
+    --text: #222;
+    --muted: #6b665a;
+    --accent: #6b5b73;
+    --border: #e0d6c6;
+    --verse-num: #8b7355;
+    --max-width: 900px;
+    --base-font: 18px;
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    font-family: "Georgia", "Times New Roman", serif;
+    background: var(--paper);
+    color: var(--text);
+    font-size: var(--base-font);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 20px auto;
+    padding: 18px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 18px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 12px;
+}
+
+.header h1 {
+    font-size: 2.1rem;
+    color: var(--accent);
+    font-weight: 400;
+}
+
+.header .subtitle {
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+/* NAV */
+.navigation {
+    background: linear-gradient(180deg, #f7f4ea, #efe6d2);
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin: 16px 0;
+}
+
+.nav-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.nav-row label {
+    min-width: 140px;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.nav-row select {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    min-width: 220px;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    width: 100%;
+}
+
+.book-button {
+    background: #fff;
+    border: 1px solid var(--border);
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 1rem;
+    min-height: 52px;
+}
+
+.book-button.selected {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+/* chapters nav */
+.chapter-nav-buttons {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.chapter-nav-buttons button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: white;
+    cursor: pointer;
+}
+
+/* CONTENT: hoja de Biblia */
+.content {
+    margin-top: 18px;
+    background: white;
+    padding: 26px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+    min-height: 320px;
+}
+
+.chapter-header {
+    text-align: center;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+}
+
+.chapter-title {
+    font-size: 1.6rem;
+    color: var(--accent);
+    font-weight: 400;
+    margin-bottom: 6px;
+}
+
+.chapter-ref {
+    color: var(--muted);
+    font-style: italic;
+}
+
+.chapter {
+    max-width: 700px;
+    margin: 0 auto;
+    hyphens: auto;
+    text-align: justify;
+    line-height: 1.8;
+    font-size: inherit;
+    /* para que escale con el control de tamaño */
+}
+
+
+
+.section-block {
+    margin-bottom: 14px;
+}
+
+.section-title {
+    text-align: center;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 14px 0 10px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+}
+
+.verse {
+    display: block;
+    margin: 8px 0;
+    line-height: 1.9;
+}
+
+.verse-number {
+    font-size: 0.85rem;
+    color: var(--verse-num);
+    font-weight: 700;
+    vertical-align: super;
+    margin-right: 6px;
+}
+
+/* accessibility controls */
+.accessibility-controls {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    background: white;
+    border: 1px solid var(--border);
+    padding: 8px;
+    border-radius: 8px;
+    z-index: 2000;
+    display: flex;
+    gap: 8px;
+}
+
+.accessibility-controls button {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    cursor: pointer;
+    min-width: 36px;
+}
+
+/* hidden helper */
+.hidden {
+    display: none !important;
+}
+
+/* high contrast mode */
+.high-contrast body,
+.high-contrast .content {
+    background: #000;
+    color: #fff;
+}
+
+.high-contrast .book-button {
+    background: #222;
+    color: #fff;
+    border-color: #444;
+}

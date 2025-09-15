@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Lectura Bíblica — Reina Valera</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="accessibility-controls" aria-hidden="false">
+        <button id="decreaseFont" title="Reducir letra">A-</button>
+        <button id="increaseFont" title="Aumentar letra">A+</button>
+        <button id="toggleContrast" title="Alternar alto contraste">Contraste</button>
+    </div>
+
+    <main class="container" role="main">
+        <header class="header" role="banner">
+            <h1>Santa Biblia — Reina Valera</h1>
+            <p class="subtitle">Diseño pensado para personas mayores — estilo “hoja de Biblia”</p>
+        </header>
+
+        <nav class="navigation" aria-label="Navegación Biblia">
+            <div class="nav-row">
+                <label for="testamentSelect">1) Testamento</label>
+                <select id="testamentSelect" aria-controls="booksGrid">
+                    <option value="">-- Seleccionar --</option>
+                    <option value="old">Antiguo Testamento</option>
+                    <option value="new">Nuevo Testamento</option>
+                </select>
+            </div>
+
+            <div id="booksSection" class="nav-row hidden" aria-hidden="true">
+                <label>2) Libro</label>
+                <div id="booksGrid" class="books-grid" role="list"></div>
+            </div>
+
+            <div id="chaptersSection" class="nav-row hidden" aria-hidden="true">
+                <label for="chapterSelect">3) Capítulo</label>
+                <select id="chapterSelect"></select>
+                <div class="chapter-nav-buttons">
+                    <button id="prevChapter" title="Capítulo anterior">◀ Anterior</button>
+                    <button id="nextChapter" title="Capítulo siguiente">Siguiente ▶</button>
+                </div>
+            </div>
+        </nav>
+
+        <section id="contentArea" class="content" aria-live="polite">
+            <div id="welcome" class="welcome">
+                <h2>Bienvenido</h2>
+                <p>Seleccione Testamento → Libro → Capítulo para comenzar.</p>
+            </div>
+            <!-- El capítulo renderizado aparecerá aquí -->
+            <article id="chapterContent" class="chapter"></article>
+        </section>
+
+        <footer class="footer">
+            <small>Datos: API.Bible · Versión: Reina-Valera (id: 592420522e16049f-01)</small>
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
