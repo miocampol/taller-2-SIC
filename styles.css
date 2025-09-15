@@ -1,16 +1,30 @@
+/* styles.css — Responsive y accesible, basado en tu versión original */
+
+/* -------------------- Variables -------------------- */
 :root {
     --paper: #fbf7ee;
     --text: #222;
     --muted: #6b665a;
     --accent: #6b5b73;
+    --accent-dark: #524251;
     --border: #e0d6c6;
     --verse-num: #8b7355;
     --max-width: 900px;
     --base-font: 18px;
+    /* valor por defecto; se ajusta en media queries */
+    --control-gap: 12px;
+    --touch-size: 48px;
+    /* tamaño mínimo interactivo */
 }
 
+/* -------------------- Reset / base -------------------- */
 * {
-    box-sizing: border-box
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
 }
 
 body {
@@ -18,11 +32,14 @@ body {
     background: var(--paper);
     color: var(--text);
     font-size: var(--base-font);
+    /* usa variable para escalado */
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
 }
 
+/* -------------------- Layout principal -------------------- */
 .container {
     max-width: var(--max-width);
     margin: 20px auto;
@@ -42,12 +59,7 @@ body {
     font-weight: 400;
 }
 
-.header .subtitle {
-    color: var(--muted);
-    margin-top: 6px;
-}
-
-/* NAV */
+/* -------------------- NAV -------------------- */
 .navigation {
     background: linear-gradient(180deg, #f7f4ea, #efe6d2);
     padding: 14px;
@@ -64,12 +76,14 @@ body {
     flex-wrap: wrap;
 }
 
+.nav-row p,
 .nav-row label {
     min-width: 140px;
     font-weight: 600;
     color: var(--muted);
 }
 
+/* Maintain select styles for fallback (if present) */
 .nav-row select {
     padding: 10px;
     font-size: 1rem;
@@ -78,6 +92,7 @@ body {
     min-width: 220px;
 }
 
+/* -------------------- Books grid -------------------- */
 .books-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -88,12 +103,16 @@ body {
 .book-button {
     background: #fff;
     border: 1px solid var(--border);
-    padding: 12px;
+    padding: 14px;
     border-radius: 8px;
     cursor: pointer;
     font-family: sans-serif;
-    font-size: 1rem;
-    min-height: 52px;
+    font-size: 1.05rem;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .book-button.selected {
@@ -102,7 +121,60 @@ body {
     border-color: var(--accent);
 }
 
-/* chapters nav */
+.book-button:focus {
+    outline: 3px solid #4a90e2;
+    outline-offset: 2px;
+}
+
+/* -------------------- Chapters grid / botones de capítulo -------------------- */
+.chapters-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+/* estilo base de botones de capítulo (círculos) */
+.chapters-grid button,
+.chap-button {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    min-height: 60px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: white;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .08s ease;
+}
+
+.chapters-grid button:hover,
+.chap-button:hover {
+    transform: translateY(-2px);
+    background: var(--accent);
+    color: white;
+}
+
+.chapters-grid button.selected,
+.chap-button.selected {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.chapters-grid button:focus,
+.chap-button:focus {
+    outline: 3px solid #4a90e2;
+    outline-offset: 2px;
+}
+
+/* -------------------- Chapter nav buttons (prev/next) -------------------- */
 .chapter-nav-buttons {
     display: flex;
     gap: 8px;
@@ -110,14 +182,20 @@ body {
 }
 
 .chapter-nav-buttons button {
-    padding: 8px 12px;
+    padding: 10px 14px;
     border-radius: 8px;
     border: 1px solid var(--border);
     background: white;
     cursor: pointer;
+    min-height: 48px;
+    font-size: 1rem;
 }
 
-/* CONTENT: hoja de Biblia */
+.chapter-nav-buttons button:focus {
+    outline: 3px solid #4a90e2;
+}
+
+/* -------------------- CONTENT: hoja de Biblia (UNA COLUMNA) -------------------- */
 .content {
     margin-top: 18px;
     background: white;
@@ -147,18 +225,19 @@ body {
     font-style: italic;
 }
 
-.chapter {
+/* El contenedor principal de lectura (solo 1 columna para mejor legibilidad) */
+.chapter,
+.chapter-body {
+    width: 100%;
     max-width: 700px;
     margin: 0 auto;
     hyphens: auto;
     text-align: justify;
     line-height: 1.8;
     font-size: inherit;
-    /* para que escale con el control de tamaño */
 }
 
-
-
+/* Versos como párrafos — mejor fluidez y lectura */
 .section-block {
     margin-bottom: 14px;
 }
@@ -176,101 +255,287 @@ body {
     display: block;
     margin: 8px 0;
     line-height: 1.9;
+    break-inside: avoid;
 }
 
 .verse-number {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     color: var(--verse-num);
     font-weight: 700;
     vertical-align: super;
-    margin-right: 6px;
+    margin-right: 8px;
 }
 
-/* accessibility controls */
+/* -------------------- Accessibility controls (mejoradas) -------------------- */
 .accessibility-controls {
     position: fixed;
     top: 18px;
     right: 18px;
     background: white;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border, #ccc);
     padding: 8px;
     border-radius: 8px;
     z-index: 2000;
+
     display: flex;
+    flex-direction: column;
+    /* ✅ ahora en columna */
     gap: 8px;
 }
 
 .accessibility-controls button {
-    padding: 8px 10px;
-    border-radius: 6px;
+    padding: 12px 14px;
+    border-radius: 10px;
     border: none;
     background: var(--accent);
     color: white;
     cursor: pointer;
-    min-width: 36px;
+    min-width: var(--touch-size);
+    font-size: 1rem;
+    font-weight: 700;
 }
 
-/* hidden helper */
+.accessibility-controls button:focus {
+    outline: 3px solid #4a90e2;
+}
+
+/* -------------------- Hidden helper / High contrast -------------------- */
 .hidden {
     display: none !important;
 }
 
-/* high contrast mode */
 .high-contrast body,
 .high-contrast .content {
     background: #000;
     color: #fff;
 }
 
-.high-contrast .book-button {
+.high-contrast .book-button,
+.high-contrast .chap-button {
     background: #222;
     color: #fff;
     border-color: #444;
 }
 
-/* Testamento */
-.testament-buttons {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+
+
+/* -------------------- Responsive: ajustes puntuales -------------------- */
+
+/* Pantallas medianas (tablets y pequeños laptops) */
+@media (max-width: 900px) {
+    :root {
+        --base-font: 18px;
+    }
+
+    /* mantener tamaño cómodo */
+    .container {
+        padding: 14px;
+    }
+
+    .header h1 {
+        font-size: 1.9rem;
+    }
+
+    .book-button {
+        padding: 12px;
+        min-height: 52px;
+        font-size: 1rem;
+    }
+
+    .chapters-grid button,
+    .chap-button {
+        width: 56px;
+        height: 56px;
+        font-size: 1.05rem;
+    }
+
+    .chapter-nav-buttons {
+        gap: 6px;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .chapter,
+    .chapter-body {
+        max-width: 640px;
+    }
 }
 
-.testament-buttons button {
-    flex: 1;
-    padding: 14px 20px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border-radius: 10px;
+/* Móviles (teléfonos): diseño vertical, botones grandes y fáciles de tocar */
+@media (max-width: 600px) {
+    :root {
+        --base-font: 20px;
+    }
+
+    /* aumentar por legibilidad en móviles */
+    .container {
+        padding: 12px;
+    }
+
+    .header h1 {
+        font-size: 1.6rem;
+    }
+
+    /* accesibility controls: mover abajo y columna para no tapar contenido */
+    .accessibility-controls {
+        top: auto;
+        bottom: 12px;
+        right: 12px;
+        flex-direction: column;
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .accessibility-controls button {
+        font-size: 1rem;
+        padding: 10px 12px;
+        min-width: 48px;
+    }
+
+    /* Testamento: botones verticales ocupando ancho */
+    .testament-buttons {
+        flex-direction: column;
+    }
+
+    .testament-buttons button {
+        width: 100%;
+        padding: 14px;
+        font-size: 1.05rem;
+    }
+
+    /* Libros: una columna para facilitar lectura */
+    .books-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    /* Capítulos: mostrar en una sola fila desplazable horizontalmente para no saturar verticalmente */
+    .chapters-grid {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+        justify-content: flex-start;
+    }
+
+    .chapters-grid button,
+    .chap-button {
+        flex: 0 0 auto;
+        width: 56px;
+        height: 56px;
+        font-size: 1rem;
+    }
+
+    /* Prev/Next verticalizados */
+    .chapter-nav-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-left: 0;
+        margin-top: 8px;
+    }
+
+    /* Contenido: aprovechar ancho, mayor tamaño de línea */
+    .content {
+        padding: 16px;
+    }
+
+    .chapter,
+    .chapter-body {
+        max-width: 100%;
+        text-align: left;
+    }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 420px) {
+    :root {
+        --base-font: 20px;
+    }
+
+    .chapters-grid button,
+    .chap-button {
+        width: 52px;
+        height: 52px;
+        font-size: 0.95rem;
+    }
+
+    .accessibility-controls {
+        padding: 6px;
+        gap: 6px;
+        bottom: 8px;
+        right: 8px;
+    }
+}
+
+
+/* =====================
+   Testament buttons (aplicar aunque cambie id/class)
+   ===================== */
+
+/* target por clase si la agregas en HTML */
+.testament-button,
+.testament-buttons button,
+#oldTestamentBtn,
+#newTestamentBtn,
+#oldTestament,
+#newTestament {
+    background: #fff;
     border: 1px solid var(--border);
-    background: white;
+    padding: 14px 18px;
+    border-radius: 8px;
     cursor: pointer;
+    font-family: sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    min-height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: background .18s ease, transform .08s ease;
 }
 
-.testament-buttons button:hover {
+/* hover / focus */
+.testament-button:hover,
+.testament-buttons button:hover,
+#oldTestamentBtn:hover,
+#newTestamentBtn:hover,
+#oldTestament:hover,
+#newTestament:hover {
     background: var(--accent);
     color: white;
+    transform: translateY(-2px);
 }
 
-/* Capítulos en botones */
-.chapters-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
+.testament-button:focus,
+.testament-buttons button:focus,
+#oldTestamentBtn:focus,
+#newTestamentBtn:focus,
+#oldTestament:focus,
+#newTestament:focus {
+    outline: 3px solid #4a90e2;
+    outline-offset: 2px;
 }
 
-.chapters-grid button {
-    width: 55px;
-    height: 55px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    background: white;
-    cursor: pointer;
-}
-
-.chapters-grid button:hover {
+/* estado seleccionado (si JS añade class "selected") */
+.testament-button.selected,
+.testament-buttons button.selected,
+#oldTestamentBtn.selected,
+#newTestamentBtn.selected,
+#oldTestament.selected,
+#newTestament.selected {
     background: var(--accent);
-    color: white;
+    color: #fff;
+    border-color: var(--accent);
 }
+
+/* Si quieres forzar (solo si todo lo demás falla) descomenta la siguiente regla:
+#oldTestamentBtn, #newTestamentBtn, .testament-button {
+  background: var(--accent) !important;
+  color: white !important;
+}
+*/
