@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chat con IA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #chat {
+            width: 500px;
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: white;
+            margin-bottom: 10px;
+        }
+
+        .user {
+            color: blue;
+            margin: 5px 0;
+        }
+
+        .assistant {
+            color: green;
+            margin: 5px 0;
+            background: #eef;
+            padding: 8px;
+            border-radius: 6px;
+            white-space: pre-wrap;
+            /* Mantiene saltos de línea */
+        }
+
+        .assistant h3 {
+            margin: 6px 0;
+            color: #333;
+        }
+
+        .assistant li {
+            margin-left: 20px;
+        }
+
+        #inputBox {
+            display: flex;
+            width: 500px;
+        }
+
+        #message {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        #send {
+            padding: 10px;
+            border: none;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        #send:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Chat con IA (OpenRouter)</h2>
+    <div id="chat"></div>
+    <div id="inputBox">
+        <input type="text" id="message" placeholder="Escribe un mensaje...">
+        <button id="send">Enviar</button>
+    </div>
+
+    <!-- 🚀 Librería para renderizar Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        const chatBox = document.getElementById("chat");
+        const input = document.getElementById("message");
+        const sendBtn = document.getElementById("send");
+
+        // ⚠️ Nunca expongas tu API key en frontend en producción
+        const API_KEY = "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";
+        const API_URL = "https://openrouter.ai/api/v1/chat/completions";
+
+        async function sendMessage() {
+            const userMsg = input.value.trim();
+            if (!userMsg) return;
+
+            // Mostrar mensaje del usuario
+            chatBox.innerHTML += `<div class="user"><b>Tú:</b> ${userMsg}</div>`;
+            input.value = "";
+
+            // Llamada a la API
+            try {
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${API_KEY}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        model: "deepseek/deepseek-r1:free",
+                        messages: [{ role: "user", content: userMsg }]
+                    })
+                });
+
+                const data = await response.json();
+                const aiMsg = data.choices[0].message.content;
+
+                // Renderizar con Markdown → HTML
+                const formatted = marked.parse(aiMsg);
+
+                // Mostrar respuesta del asistente con formato
+                chatBox.innerHTML += `<div class="assistant"><b>IA:</b><br>${formatted}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (err) {
+                chatBox.innerHTML += `<div class="assistant"><b>IA:</b> Error al conectar con la API</div>`;
+            }
+        }
+
+        sendBtn.addEventListener("click", sendMessage);
+        input.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") sendMessage();
+        });
+    </script>
+</body>
+
+</html>

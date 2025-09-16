@@ -532,6 +532,44 @@ body {
     color: #fff;
     border-color: var(--accent);
 }
+/* =====================
+   Chatbot botón (en accesibilidad)
+   ===================== */
+.chat-entry {
+    margin-top: 8px;
+}
+
+.chat-button {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.chat-button:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+}
+
+.chat-button:focus {
+    outline: 3px solid #4a90e2;
+    outline-offset: 2px;
+}
+
+/* versión más grande en móvil */
+@media (max-width: 600px) {
+    .chat-button {
+        font-size: 1.1rem;
+        padding: 16px;
+    }
+}
 
 /* Si quieres forzar (solo si todo lo demás falla) descomenta la siguiente regla:
 #oldTestamentBtn, #newTestamentBtn, .testament-button {
