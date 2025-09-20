@@ -109,17 +109,3 @@ Esta aplicación ha sido especialmente diseñada para:
 - **Comunidades religiosas** que requieren herramientas digitales accesibles
 
 ---
-
-##  Contribuciones
-
-Las contribuciones son bienvenidas y apreciadas. Para contribuir:
-
-1. Fork del proyecto
-2. Crear rama para nueva funcionalidad (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit de cambios (`git commit -m 'Agregar nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Abrir Pull Request
-
----
-
-*Desarrollado con ❤️ para facilitar el acceso a las Sagradas Escrituras mediante tecnología moderna y accesible.*
